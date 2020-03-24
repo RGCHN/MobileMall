@@ -31,7 +31,7 @@
       },
       itemClick(){
         //点击后跳转到详情页
-        this.$router.push('/detail'+ this.goodsItem.iid);
+        this.$router.push('/Detail'+ this.goodsItem.iid);
       },
     }
   }

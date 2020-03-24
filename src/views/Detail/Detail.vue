@@ -11,7 +11,7 @@
             <goods-list ref="recommend" :goods-list="recommends"></goods-list>
         </scroll>
         <back-top  @click.native="backToTop" v-show="showBackTop"/>
-        <detail-tab-bar/>
+        <detail-tab-bar @addToCart="addToCart"/>
     </div>
 </template>
 
@@ -36,8 +36,8 @@
                 backTop,Scroll,DetailGoodsInfo,DetailParams,DetailComment},
     data(){
       return {
-        gid:null,
-        topImages:null,//顶部轮播图
+        iid:'',
+        topImages:[],//顶部轮播图
         goods:{},
         shopInfo:{},
         detailInfo:{},
@@ -45,17 +45,17 @@
         commentInfo:{},
         recommends:[],
         showBackTop:false,
-        TopYs:[0,0,0,0],
+        TopYs:[0,0,0,0,0],
         NavIndex:0
       }
     },
     created() {
       //保存被点击的商品的id
-      this.gid = this.$route.params.goodID;
+      this.iid = this.$route.params.goodID;
       //发送网络请求 获取商品详细数据
-      getDetail(this.gid).then(res => {
+      getDetail(this.iid).then(res => {
         //获取顶部轮播数据
-       const data = res.result;
+        const data = res.result;
        this.topImages = data.itemInfo.topImages;
        //获取商品信息
        this.goods = new GoodsInfo(data.itemInfo,data.columns,data.shopInfo.services);
@@ -83,7 +83,7 @@
         product.title = this.goods.title;
         product.desc = this.goods.desc;
         product.newPrice = this.goods.nowPrice;
-        this.$store.commit('addCart',product);
+        this.$store.dispatch('addCart',product);
       },
       backToTop(){
         this.$refs.dScroll.scrollTo(0,0);

@@ -1,25 +1,42 @@
 import axios from 'axios'
-export function request(config) {
-  const instance = axios.create({
-    //baseURL: 'http://123.207.32.32:8000/api/wh',
-    baseURL:'http://106.54.54.237:8000/api/wh',
-    timeout: 5000
-  });
+export  function request(config) {
+  return new Promise((resolve, reject) => {
+    const instance = axios.create({
+      baseURL: 'http://123.207.32.32:8000/api/wh',
+      //baseURL:'http://106.54.54.237:8000/api/wh',
+      timeout: 50000
+    });
 
-  instance.interceptors.request.use(
+    instance.interceptors.request.use(
       config => {
         return config
-      },err => {
+      }, err => {
         console.log(err);
       }
-  );
+    );
 
-  instance.interceptors.response.use(
+    instance.interceptors.response.use(
       res => {
         return res.data
-      },err => {
+      }, err => {
         console.log(err);
+        if (err && err.response) {
+          switch (err.response.date) {
+            case 400:
+              err.message = '请求错误';
+              break;
+            case 401:
+              err.message = '未授权的访问';
+              break;
+          }
+        }
+        return err
       });
 
-  return instance(config)
+    instance(config).then(res => {
+      resolve(res);
+    }).catch(err => {
+      reject(err);
+    });
+  })
 }

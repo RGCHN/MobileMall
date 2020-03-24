@@ -10,6 +10,13 @@ export function getDetail(iid){
   })
 }
 
+//请求推荐信息
+export function getRecommend() {
+  return request({
+    url:'/recommend'
+  })
+}
+
 //商品详情信息
 export class GoodsInfo{
   constructor(itemInfo,columns,services) {
@@ -22,7 +29,6 @@ export class GoodsInfo{
     this.services = services;
     this.discountBgColor = itemInfo.discountBgColor;
     this.realPrice =itemInfo.lowNowPrice;
-
   }
 }
 //详情页商家信息
@@ -44,9 +50,4 @@ export class GoodsParam{
     this.sizes = rule.tables;
   }
 }
-//请求推荐信息
-export function getRecommend() {
-  return request({
-    url:'/recommend'
-  })
-}
+
