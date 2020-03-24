@@ -82,7 +82,7 @@
         product.imgURL = this.topImages[0];
         product.title = this.goods.title;
         product.desc = this.goods.desc;
-        product.newPrice = this.goods.nowPrice;
+        product.price = this.goods.realPrice;
         this.$store.dispatch('addCart',product);
       },
       backToTop(){

@@ -84,7 +84,7 @@
     }
 
     .right .buy{
-        background-color: #ffb1b9;
+        background-color: #eb4d4b;
     }
 
 </style>

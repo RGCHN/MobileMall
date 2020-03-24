@@ -4,6 +4,7 @@ const mutations = {
   },
   addProduct(state,payload){
     payload.count = 1;
+    payload.checked = false;
     state.cartList.push(payload);
   },
 };
