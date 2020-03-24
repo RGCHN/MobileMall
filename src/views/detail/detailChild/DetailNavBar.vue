@@ -6,7 +6,7 @@
             </div>
             <div slot="mid" class="navTitle">
                 <div v-for="(item,index) in navTitle" :key="index" class="titleItem"
-                    :class="{active:currentIndex === index}" @click="itemClick(index)">
+                    :class="{active:DetailIndex === index}" @click="itemClick(index)">
                     {{item}}
                 </div>
             </div>
@@ -19,16 +19,24 @@
   export default {
     name: "dNavBar",
     components:{NavBar},
+    props:{
+      DetailIndex:{
+        type:Number,
+        default(){
+          return 0
+        }
+      }
+    },
     data(){
       return {
         navTitle:["商品","参数","评论","推荐"],
-        currentIndex:0
+        currentIndex:0,
       }
     },
+
     methods:{
       itemClick(index){
-        this.currentIndex = index;
-        this.$emit('titleClick',index);
+        this.$emit('NavClick',index);
       },
       backClick(){
         this.$router.go(-1);

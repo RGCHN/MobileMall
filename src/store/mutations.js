@@ -16,6 +16,7 @@ const mutations = {
   },
   setDetailNavIndex(n){
     this.state.detailNavIndex = n;
+    console.log(this.state.detailNavIndex);
   }
 
 };

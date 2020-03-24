@@ -1,7 +1,7 @@
 <template>
     <div class="detail">
-       <detail-nav-bar ref="nav" class="dNav"  @titleClick="NavClick"/>
-        <scroll class="content" ref="dScroll" @scrollpos="contentScroll" :probe-type="3">
+       <detail-nav-bar ref="nav" class="dNav" @NavClick="NavClick" :detail-index="NavIndex"/>
+        <scroll class="content" ref="dScroll" @scrollpos="scrollContent" :probe-type="3">
             <detail-swipe ref="base" :top-images="topImages" class="detail-swipe"></detail-swipe>
             <detail-base-info :goods="goods"/>
             <detail-shop-info :shop="shopInfo"/>
@@ -46,7 +46,7 @@
         recommends:[],
         showBackTop:false,
         TopYs:[0,0,0,0],
-        NavIndex :0,
+        NavIndex:0
       }
     },
     created() {
@@ -75,39 +75,21 @@
           this.recommends = res.data.list;
        });
     },
-    /*updated() {
-      this.getTopY();
-    },*/
     methods:{
       addToCart(){
-        const obj = {};
-        obj.iid = this.iid;
-        obj.imgURL = this.topImages[0];
-        obj.title = this.goods.title;
-        obj.desc = this.goods.desc;
-        obj.newPrice = this.goods.nowPrice;
-        this.$store.commit('addCart',obj);
+        const product = {};
+        product.iid = this.iid;
+        product.imgURL = this.topImages[0];
+        product.title = this.goods.title;
+        product.desc = this.goods.desc;
+        product.newPrice = this.goods.nowPrice;
+        this.$store.commit('addCart',product);
       },
       backToTop(){
         this.$refs.dScroll.scrollTo(0,0);
       },
       contentScroll(position){
         this.showBackTop = Math.abs(position.y) > 2000;
-        let currentY = Math.abs(position.y) + 44;
-        let len = this.TopYs.length;
-        this.NavIndex = this.$refs.nav.currentIndex;
-        for(let i=0;i< len-1;i++){
-          if(this.NavIndex !== i){
-            if( currentY >= this.TopYs[i] && currentY < this.TopYs[i+1]){
-              this.NavIndex = i;
-              this.$refs.nav.currentIndex = this.NavIndex;
-            }
-          }
-        }
-      },
-      NavClick(index){
-        this.$refs.nav.currentInex = this.NavIndex;
-        this.$refs.dScroll.scrollTo(0,-this.TopYs[index]+44,0);
       },
       getTopY(){
         this.TopYs = [];
@@ -116,12 +98,27 @@
         this.TopYs.push(this.$refs.comment.$el.offsetTop);
         this.TopYs.push(this.$refs.recommend.$el.offsetTop);
         this.TopYs.push(1e10);
-        console.log(this.TopYs);
       },
       imgLoad(){
         this.$refs.dScroll.refresh();
         this.getTopY();
       },
+      NavClick(index){
+        this.NavIndex = index;
+        this.$refs.dScroll.scrollTo(0,-this.TopYs[index]+44,0);
+      },
+      scrollContent(position){
+        this.showBackTop = Math.abs(position.y) > 2000;
+        let currentY = Math.abs(position.y) + 44;
+        let len = this.TopYs.length;
+        for(let i=0;i<len-1;i++){
+          if(this.NavIndex !== i){
+            if(currentY >= this.TopYs[i] && currentY < this.TopYs[i + 1]){
+              this.NavIndex = i;
+            }
+          }
+        }
+      }
     },
   }
 </script>

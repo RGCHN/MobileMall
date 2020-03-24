@@ -17,7 +17,7 @@
       },
       activeColor: {
         type: String,
-        default: 'red'
+        default: '#75b598'
       }
     },
     data() {
