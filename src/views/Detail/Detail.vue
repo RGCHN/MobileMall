@@ -76,16 +76,20 @@
        });
     },
     methods:{
-      addToCart(){
+      addToCart(showMsg){
         const product = {};
         product.iid = this.iid;
         product.imgURL = this.topImages[0];
         product.title = this.goods.title;
         product.desc = this.goods.desc;
         product.price = this.goods.realPrice;
-        this.$store.dispatch('addCart',product).then((res)=>{
-          this.$Toast(res,2000);
-        });
+        if(showMsg){
+          this.$store.dispatch('addCart',product).then((res)=>{
+            this.$Toast(res,2000);
+          });
+        }else{
+          this.$store.dispatch('addCart',product);
+        }
       },
       backToTop(){
         this.$refs.dScroll.scrollTo(0,0);

@@ -45,7 +45,6 @@
           this.$Toast('宝贝不能再增加了',2000);
           window.alert('宝贝不能再增加了！')
         }
-
       },
       subProduct(){
         if(this.product.count <=1){
@@ -53,7 +52,7 @@
         }else{
           this.$store.commit('subCount',this.product.iid);
         }
-      }
+      },
     }
   }
 </script>
@@ -65,6 +64,10 @@
     font-size: 0;
     display: flex;
     border-bottom: 1px solid #ccc;
+  }
+
+  .cart-list-item:hover{
+    background-color: #fff;
   }
 
   .selector{

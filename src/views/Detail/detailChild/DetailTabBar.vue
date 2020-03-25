@@ -18,7 +18,7 @@
 
         <div class="bar-item right">
             <div class="cart" @click="addToCart">加入购物车</div>
-            <div class="buy">购买</div>
+            <div class="buy" @click="goCart">购买</div>
         </div>
     </div>
 </template>
@@ -33,10 +33,14 @@
     },
     methods:{
       addToCart(){
-        this.$emit('addToCart');
+        this.$emit('addToCart',true);
       },
       changeActive(){
         this.active = !this.active
+      },
+      goCart(){
+        this.$emit('addToCart',false);
+        this.$router.replace('/cart');
       }
     }
 
