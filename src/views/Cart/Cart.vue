@@ -20,16 +20,17 @@
   import Scroll from "../../components/common/scroll/Scroll";
   import {mapGetters} from 'vuex';
   export default {
-      name: "Cart",
-      components:{NavBar,CartBottomBar,Scroll,CartListItem},
-      computed:{
-         ...mapGetters([
-             'cartList','cartLength',
-         ])
+     name: "Cart",
+     components:{NavBar,CartBottomBar,Scroll,CartListItem},
+     computed:{
+        ...mapGetters([
+           'cartList','cartLength',
+        ])
         /* ...mapGetters({
             length:'cartLength'
          })*/
-      }
+     },
+
   }
 </script>
 
@@ -44,7 +45,7 @@
 
    .cart-list{
       overflow: hidden;
-      height: calc(100% - 137px);
+      height: calc(100% - 135px);
    }
    .bottom-bar{
       position: relative;

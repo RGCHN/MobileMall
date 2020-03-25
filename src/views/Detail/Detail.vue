@@ -83,7 +83,9 @@
         product.title = this.goods.title;
         product.desc = this.goods.desc;
         product.price = this.goods.realPrice;
-        this.$store.dispatch('addCart',product);
+        this.$store.dispatch('addCart',product).then((res)=>{
+          this.$Toast(res,2000);
+        });
       },
       backToTop(){
         this.$refs.dScroll.scrollTo(0,0);

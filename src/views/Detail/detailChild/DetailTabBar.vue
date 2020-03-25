@@ -12,7 +12,7 @@
            <div @click="changeActive">
                <img src="~img/detail/collect.png" v-if="!this.active">
                <img src="~img/detail/collect_active.png" v-else>
-               <span class="text">收藏</span>
+               <span class="text" :class="{active:this.active}">收藏</span>
            </div>
        </div>
 
@@ -33,7 +33,7 @@
     },
     methods:{
       addToCart(){
-        this.$emit('addToCart')
+        this.$emit('addToCart');
       },
       changeActive(){
         this.active = !this.active
@@ -86,5 +86,9 @@
     .right .buy{
         background-color: #eb4d4b;
     }
+    .bar-item.left .active{
+        color:#F7C709;
+    }
+
 
 </style>
