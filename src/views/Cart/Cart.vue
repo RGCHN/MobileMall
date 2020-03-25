@@ -4,22 +4,24 @@
       <nav-bar class="cart-nav">
          <div slot="mid">购物车({{cartLength}})</div>
       </nav-bar>
-
       <!--列表-->
-      <cart-list :list="cartList"/>
+      <scroll class="cart-list">
+         <cart-list-item v-for="(item,index) in cartList" :key="index" :product="item"/>
+      </scroll>
       <!--底部汇总-->
-
+      <cart-bottom-bar class="bottom-bar"/>
    </div>
 </template>
 
 <script>
   import NavBar from "components/common/navbar/NavBar";
-  import CartList from "./cartChild/CartList";
-
+  import CartBottomBar from "./cartChild/CartBottomBar";
+  import CartListItem from "./cartChild/CartListItem";
+  import Scroll from "../../components/common/scroll/Scroll";
   import {mapGetters} from 'vuex';
   export default {
       name: "Cart",
-      components:{NavBar,CartList},
+      components:{NavBar,CartBottomBar,Scroll,CartListItem},
       computed:{
          ...mapGetters([
              'cartList','cartLength',
@@ -39,6 +41,17 @@
    .cart{
       height: 100vh;
    }
+
+   .cart-list{
+      overflow: hidden;
+      height: calc(100% - 137px);
+   }
+   .bottom-bar{
+      position: relative;
+      z-index:3;
+      background-color: #fff;
+   }
+
 
 
 </style>

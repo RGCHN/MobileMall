@@ -1,5 +1,5 @@
 <template>
-  <div class="check-button" @Click="itemClick">
+  <div class="check-button" @click="itemClick">
     <img v-if="!isChecked" src="~assets/img/cart/unchecked.svg" alt="">
     <img v-else src="~assets/img/cart/checked.svg" alt="">
   </div>
@@ -10,10 +10,7 @@
     name: "CheckButton",
     props:{
       isChecked:{
-        type:Boolean,
-        default(){
-          return true
-        }
+        type:Boolean
       }
     },
     data(){
