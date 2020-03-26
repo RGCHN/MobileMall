@@ -38,6 +38,7 @@
    .cart-nav{
       background-color: var(--color-tint);
       color: #fff;
+      font-weight: 700;
    }
    .cart{
       height: 100vh;
@@ -45,10 +46,17 @@
 
    .cart-list{
       overflow: hidden;
-      height: calc(100% - 135px);
+      /*height: calc(100% - 135px);*/
+      position: absolute;
+      top: 44px;
+      bottom: 49px;
+      width: 100%;
    }
    .bottom-bar{
-      position: relative;
+      position:fixed;
+      right: 0;
+      left:0;
+      bottom:49px;
       z-index:3;
       background-color: #fff;
    }

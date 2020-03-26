@@ -68,7 +68,6 @@
     height: 42px;
     line-height:42px;
     text-align: center;
-    position: relative;
     margin-left:5px;
     font-size: 16px;
     justify-content: space-between;

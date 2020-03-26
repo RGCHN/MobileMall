@@ -84,11 +84,12 @@
         product.desc = this.goods.desc;
         product.price = this.goods.realPrice;
         if(showMsg){
-          this.$store.dispatch('addCart',product).then((res)=>{
+          this.$store.dispatch('addCart',{product:product,checked:false}).then((res)=>{
             this.$Toast(res,2000);
           });
         }else{
-          this.$store.dispatch('addCart',product);
+          product.checked = true;
+          this.$store.dispatch('addCart',{product:product,checked:true});
         }
       },
       backToTop(){

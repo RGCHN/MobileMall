@@ -3,9 +3,9 @@ const mutations = {
     payload.count++;
   },
   addProduct(state,payload){
-    payload.count = 1;
-    payload.checked = false;
-    state.cartList.push(payload);
+    payload.product.count = 1;
+    /*payload.checked = payload.checked;*/
+    state.cartList.push(payload.product);
   },
   modifyChecked(state,payload){
     for(let item of state.cartList){
