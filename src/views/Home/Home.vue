@@ -160,6 +160,7 @@
     .home-nav{
         background-color: var(--color-tint);
         color: #fff;
+        font-weight: 700;
     }
     .scontent{
         height: calc(100% - 93px);
