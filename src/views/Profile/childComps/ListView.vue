@@ -51,7 +51,7 @@
     font-size: 15px;
     color: #333;
     margin-bottom:10px;
-    border-top: 5px solid rgba(100,100,100,0.1)
+    border-top: 5px solid rgba(100,100,100,0.1);
   }
 
   .list-title{
@@ -63,15 +63,22 @@
 
   .list-item{
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     text-align: center;
-    margin: 10px 15px;
+    margin: 0 15px 10px;
     font-size: 13px;
   }
 
+  .list-item .item{
+    margin-top:10px;
+    width: 25%;
+    justify-content: center;
+  }
+
   .list-item img{
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
   }
 
 
