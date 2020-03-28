@@ -52,14 +52,6 @@
       bottom: 49px;
       width: 100%;
    }
-   .bottom-bar{
-      position:fixed;
-      right: 0;
-      left:0;
-      bottom:49px;
-      z-index:3;
-      background-color: #fff;
-   }
 
 
 

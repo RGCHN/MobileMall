@@ -64,13 +64,20 @@
 
 <style scoped>
   .bottom-bar{
+    width: 100%;
     display: flex;
-    height: 42px;
-    line-height:42px;
+    height: 49px;
+    line-height:49px;
     text-align: center;
     margin-left:5px;
     font-size: 16px;
     justify-content: space-between;
+    background-color: #eee;
+    position: fixed;
+    bottom: 49px;
+    right: 0;
+    box-shadow: 0 -2px 3px rgba(0, 0, 0, .2);
+    box-sizing: border-box;
   }
   .button{
     display: flex;
@@ -85,10 +92,12 @@
 
   .gocalc{
     color: #ffffff;
-    margin-right: 5px;
-    border-radius: 15px;
+    margin: 3px 5px;
+    border-radius: 10px;
     background-color: #ED4C67;
     width: 60px;
+    height: 38px;
+    line-height: 38px;
   }
 
 </style>

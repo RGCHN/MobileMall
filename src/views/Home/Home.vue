@@ -33,6 +33,7 @@
 
   import {getHomeMultidata,getHomeGoods} from "network/home";
   import {debounce} from "../../Utils/utils";
+  import {tabControlMixin} from "../../common/mixin";
 
   export default {
     name: "Home",
@@ -41,6 +42,7 @@
       HomeSwiper, RecommendView, FeatureView,
 
     },
+    mixins:[tabControlMixin],
     data(){
       return {
         banners:[],
