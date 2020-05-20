@@ -15,6 +15,7 @@
                          @tabClick="tabClick"/>
             <goods-list :goods-list="showGoods"/>
         </scroll>
+
         <!--组件不能监听点击 除非加上.native修饰符（v-on修饰符）-->
         <back-top @click.native="backTopClick" v-show="showBackTop"></back-top>
     </div>
@@ -40,7 +41,6 @@
     components:{
       NavBar, TabControl, goodsList,Scroll,backTop,
       HomeSwiper, RecommendView, FeatureView,
-
     },
     mixins:[tabControlMixin],
     data(){
@@ -108,6 +108,7 @@
         }
         this.$refs.tabControl2.currentIndex = index;
         this.$refs.tabControl1.currentIndex = index;
+        this.$refs.scroll.scrollTo(0,-this.tabOffsetTop+40,0);
       },
       backTopClick(){
         /*通过refs拿到ref为scroll的对象 调用里面的方法*/

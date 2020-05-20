@@ -105,6 +105,9 @@
         this.TopYs.push(this.$refs.comment.$el.offsetTop);
         this.TopYs.push(this.$refs.recommend.$el.offsetTop);
         this.TopYs.push(1e10);
+        if(!this.TopYs[2]){
+          this.TopYs[2] = this.TopYs[3] - 50;
+        }
       },
       imgLoad(){
         this.$refs.dScroll.refresh();
@@ -112,6 +115,11 @@
       },
       NavClick(index){
         this.NavIndex = index;
+        if(this.TopYs[0] === 0){
+          this.TopYs = this.TopYs.map((item) => {
+            return item + 44
+          });
+        }
         this.$refs.dScroll.scrollTo(0,-this.TopYs[index]+44,0);
       },
       scrollContent(position){

@@ -14,7 +14,7 @@
       },
       hMargin:{
         type:Number,
-        default:8
+        default:4
       },
       vMargin:{
         type:Number,
@@ -22,7 +22,7 @@
       },
       itemSpace:{
         type:Number,
-        default:8
+        default:0
       },
       lineSpace:{
         type:Number,

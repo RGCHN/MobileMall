@@ -6,7 +6,7 @@
                 <slide-menu :categories="categories" @selectItem="selectItem"></slide-menu>
             </scroll>
             <scroll class="tab-content" :data="[categoryData]">
-                <tab-content :subcategories="showSubcategory"></tab-content>
+                <tab-content :subcategories="getSubcategoryData"></tab-content>
            </scroll>
         </div>
     </div>
@@ -26,9 +26,7 @@
     data(){
       return{
         categories:[],
-        categoryData:{
-
-        },
+        categoryData:{},
         currentIndex:-1,
       }
     },
@@ -36,7 +34,7 @@
       this.getData();
     },
     computed:{
-      showSubcategory(){
+      getSubcategoryData(){
           if(this.currentIndex === -1){
               return {}
           }

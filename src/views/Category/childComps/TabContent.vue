@@ -38,7 +38,7 @@
     font-size: 12px;
   }
   .item-img{
-    width:80%;
+    width:70%;
   }
   .item-text{
     margin-top: 15px;
