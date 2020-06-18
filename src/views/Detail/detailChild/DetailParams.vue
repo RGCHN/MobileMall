@@ -1,9 +1,9 @@
 <template>
     <div class="params" v-if="Object.keys(goodsParams).length !== 0">
-        <table v-for="(table,index1) in goodsParams.sizes" :key="index1"
+        <table v-for="(sizes,index1) in goodsParams.sizes" :key="index1"
                 class="info-size">
-            <tr v-for="(tr,index2) in table" :key="index2">
-                <td v-for="(td,index3) in tr" :key="index3">{{td}}</td>
+            <tr v-for="(name,index2) in sizes" :key="index2">
+                <td v-for="(item,index3) in name" :key="index3">{{item}}</td>
             </tr>
         </table>
         <table class="info-param">

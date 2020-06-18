@@ -8,26 +8,11 @@
   export default {
     name: "GridView",
     props:{
-      cols:{
-        type:Number,
-        default:2
-      },
-      hMargin:{
-        type:Number,
-        default:4
-      },
-      vMargin:{
-        type:Number,
-        default:8
-      },
-      itemSpace:{
-        type:Number,
-        default:0
-      },
-      lineSpace:{
-        type:Number,
-        default:8
-      }
+      cols:{type:Number, default:2}, //列数
+      hMargin:{type:Number, default:4},//左右边距
+      vMargin:{type:Number, default:8},//上下边距
+      itemSpace:{type:Number, default:0},//元素之间的距离
+      lineSpace:{type:Number, default:8},//行之间的距离
     },
     mounted() {
       setTimeout(this.autoLayout,20)
@@ -49,9 +34,11 @@
           let item = children[i];
           item.style.width = itemWidth +'px';
           if( (i+1) % this.cols !== 0){
+            //不是每行最后一个元素 加右margin
             item.style.marginRight = this.itemSpace + 'px';
           }
           if( i >= this.cols){
+            //不是第一行元素 加marginTop
             item.style.marginTop = this.lineSpace + 'px'
           }
         }

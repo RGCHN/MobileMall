@@ -32,6 +32,7 @@
   import RecommendView from "./childComps/RecommendView";
   import FeatureView from "./childComps/FeatureView";
 
+
   import {getHomeMultidata,getHomeGoods} from "network/home";
   import {debounce} from "../../Utils/utils";
   import {tabControlMixin} from "../../common/mixin";
@@ -39,8 +40,7 @@
   export default {
     name: "Home",
     components:{
-      NavBar, TabControl, goodsList,Scroll,backTop,
-      HomeSwiper, RecommendView, FeatureView,
+      NavBar, TabControl, goodsList,Scroll,backTop, RecommendView, FeatureView,HomeSwiper
     },
     mixins:[tabControlMixin],
     data(){
@@ -115,6 +115,7 @@
         this.$refs.scroll.scrollTo(0,0);
       },
       contentScroll(position){
+          //向下滑动 position.y的值为负
         //判断滚动位置 以显示回到顶部按钮
         this.showBackTop = Math.abs(position.y) > 2000;
         //判断滚动距离决定tabcontrol是否吸顶

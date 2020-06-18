@@ -105,10 +105,10 @@
       overflow: hidden;
   }
 
-    .tab-content{
+  .tab-content{
         height: 100%;
         flex: 1;
-    }
+  }
 
 
 </style>

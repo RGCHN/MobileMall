@@ -62,25 +62,19 @@
   }
 
   .list-item{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    row-gap: 15px;
+    margin-top:15px;
     text-align: center;
-    margin: 0 15px 10px;
-    font-size: 13px;
-  }
-
-  .list-item .item{
-    margin-top:10px;
-    width: 25%;
-    justify-content: center;
+    font-size: 12px;
   }
 
   .list-item img{
     width: 30px;
     height: 30px;
+    margin-bottom: 2px;
   }
-
 
 
 

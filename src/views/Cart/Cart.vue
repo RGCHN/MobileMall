@@ -23,6 +23,7 @@
      name: "Cart",
      components:{NavBar,CartBottomBar,Scroll,CartListItem},
      computed:{
+        //Vuex中的getters中设定
         ...mapGetters([
            'cartList','cartLength',
         ])
@@ -49,7 +50,7 @@
       /*height: calc(100% - 135px);*/
       position: absolute;
       top: 44px;
-      bottom: 49px;
+      bottom: 98px;
       width: 100%;
    }
 

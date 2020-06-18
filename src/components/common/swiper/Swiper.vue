@@ -1,26 +1,15 @@
 <template>
     <div id="hy-swiper">
+        <!--监听插槽（swiperItem）里的图片触摸事件-->
         <div class="swiper" @touchstart="touchStart"
              @touchmove="touchMove" @touchend="touchEnd">
             <slot></slot>
         </div>
-
         <div class="indicator" v-if="showIndicator && slideCount > 1">
             <div v-for="(item, index) in slideCount" class="indi-item"
                  :class="{active: index === currentIndex-1}"
                  :key="index"></div>
         </div>
-
-        <!--<slot name="indicator"></slot>-->
-
-        <!--<div class="indicator">
-            <slot name="indicator" v-if="showIndicator && slideCount>1">
-                <div v-for="(item,index) in slideCount" class="indi-item"
-                    :class="{active :index === currentIndex - 1}"
-                    :key="index">
-                </div>
-            </slot>
-        </div>-->
     </div>
 
 </template>
@@ -53,7 +42,7 @@
     data() {
       return {
         slideCount: 0,//轮播的swiperItem个数
-        totalWidth: 0,//swiperItem的宽度
+        singleWidth: 0,//swiperItem的宽度
         currentIndex: 1,//当前的index
         swiperStyle: {},//swiper的样式
         scrolling: false,//是否正在滚动
@@ -63,7 +52,7 @@
       setTimeout(() => {
         //1.操作DOM 在前后各添加一张slide
         this.handleDom();
-        //2.开启定时器
+        //2.开启轮播
         this.startTimer();
       }, 500)
     },
@@ -76,25 +65,25 @@
         let slideEls = document.getElementsByClassName('slide');
         //2.保存个数
         this.slideCount = slideEls.length;
-        //3.如果大于一个 则在前后分别添加一个slide
+        //3.如果大于一个 则在前后分别添加一个slide [1,2,3,4]--[4,1,2,3,4,1]
         if (this.slideCount > 1) {
           let cloneFirst = slideEls[0].cloneNode(true);
           let cloneLast = slideEls[this.slideCount - 1].cloneNode(true);
           swiperEl.insertBefore(cloneLast, slideEls[0]);
           swiperEl.appendChild(cloneFirst);
           //返回swiper那个div的宽度（包括元素宽度、内边距和边框，不包括外边距）
-          this.totalWidth = swiperEl.offsetWidth;
+          this.singleWidth = swiperEl.offsetWidth;
           this.swiperStyle = swiperEl.style;
         }
 
         //4. 让swiper元素显示第一个
-        this.setTransform(-this.totalWidth);
+        this.setTransform(-this.singleWidth);
       },
       /*设置滚动的位置*/
       setTransform(position) {
-        this.swiperStyle.transform = `translate3d(${position}px, 0, 0)`;
-        this.swiperStyle['-webkit-transform'] = `translate3d(${position}px), 0, 0`;
-        this.swiperStyle['-ms-transform'] = `translate3d(${position}px), 0, 0`;
+        this.swiperStyle.transform = `translateX(${position}px)`;
+        this.swiperStyle['-webkit-transform'] = `translateX(${position}px)`;
+        this.swiperStyle['-ms-transform'] = `translateX(${position}px)`;
       },
       /*
       * 定时器操作
@@ -102,7 +91,7 @@
       startTimer() {
         this.playTimer = window.setInterval(() => {
           this.currentIndex++;
-          this.scrollContent(-this.currentIndex * this.totalWidth);
+          this.scrollContent(-this.currentIndex * this.singleWidth);
         }, this.interval)
       },
 
@@ -117,7 +106,7 @@
         //设置正在滚动
         this.scrolling = true;
         //开始滚动动画
-        this.swiperStyle.transition = 'transform ' + this.animDuration + 'ms';
+        this.swiperStyle.transition = `transform ${this.animDuration}ms`;
         this.setTransform(currentPosition);
         //判断滚动到的位置
         this.checkPosition();
@@ -130,17 +119,15 @@
 
       checkPosition() {
         window.setTimeout(() => {
-          //1.校验正确的位置
+          //校验正确的位置
           this.swiperStyle.transition = '0ms';
           if (this.currentIndex >= this.slideCount + 1) {
             this.currentIndex = 1;
-            this.setTransform(-this.currentIndex * this.totalWidth);
+            this.setTransform(-this.currentIndex * this.singleWidth);
           } else if (this.currentIndex <= 0) {
             this.currentIndex = this.slideCount;
-            this.setTransform(-this.currentIndex * this.totalWidth)
+            this.setTransform(-this.currentIndex * this.singleWidth)
           }
-          //2.结束移动后的回调
-          this.$emit('transitionEnd', this.currentIndex - 1);
         }, this.animDuration)
       },
 
@@ -160,7 +147,7 @@
         this.currentX = e.touches[0].pageX;
         //向右触摸时pageX变大
         this.distance = this.currentX - this.startX;
-        let currentPosition = -this.currentIndex * this.totalWidth;
+        let currentPosition = -this.currentIndex * this.singleWidth;
         let moveDistance = this.distance + currentPosition;
 
         //2.设置当前的位置
@@ -170,33 +157,16 @@
         //1.获取移动的距离
         let currentMove = Math.abs(this.distance);
         //2.判断最终的距离
-        if (this.distance === 0) {
-          return
-        } else if (this.distance > 0 && currentMove > this.totalWidth * this.moveRatio) {
-          //正值 slide被向右拖动 显示前一张
-          this.currentIndex--;
-        } else if (this.distance < 0 && currentMove > this.totalWidth * this.moveRatio) {
-          this.currentIndex++;
+        if(this.distance === 0){
+            return
+        }else{
+            if(currentMove > this.singleWidth * this.moveRatio){
+                this.distance >0?this.currentIndex--:this.currentIndex++;
+            }
         }
-
         //3.移动到正确的位置
-        this.scrollContent(-this.currentIndex * this.totalWidth);
+        this.scrollContent(-this.currentIndex * this.singleWidth);
         //4.移动完成后重新开始定时器
-        this.startTimer();
-      },
-      /*
-        *控制上一个，下一个
-        */
-      previous() {
-        this.changeItem(-1);
-      },
-      next() {
-        this.changeItem(1);
-      },
-      changeItem(num) {
-        this.stopTimer();
-        this.currentIndex += num;
-        this.scrollContent(-this.currentIndex * this.totalWidth)
         this.startTimer();
       },
     }

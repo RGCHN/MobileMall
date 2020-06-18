@@ -55,7 +55,7 @@
       //发送网络请求 获取商品详细数据
       getDetail(this.iid).then(res => {
         //获取顶部轮播数据
-        const data = res.result;
+          const data = res.result;
        this.topImages = data.itemInfo.topImages;
        //获取商品信息
        this.goods = new GoodsInfo(data.itemInfo,data.columns,data.shopInfo.services);
@@ -84,12 +84,13 @@
         product.desc = this.goods.desc;
         product.price = this.goods.realPrice;
         if(showMsg){
-          this.$store.dispatch('addCart',{product:product,checked:false}).then((res)=>{
+            product.checked = false;
+          this.$store.dispatch('addCart',{product:product}).then((res)=>{
             this.$Toast(res,2000);
           });
         }else{
           product.checked = true;
-          this.$store.dispatch('addCart',{product:product,checked:true});
+          this.$store.dispatch('addCart',{product:product});
         }
       },
       backToTop(){
@@ -135,6 +136,10 @@
         }
       }
     },
+    updated() {
+       this.getTopY();
+    }
+
   }
 </script>
 
